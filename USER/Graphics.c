@@ -8,10 +8,12 @@
 /***** Include files  *********************************************/
 #include <stm32f10x.h>
 #include <string.h>
+#include "bsp.h"
 #include "Video.h"
 #include "Graphics.h"
 
 /***** Constants  *************************************************/
+#define TIMING_TEST
 
 /***** Types      *************************************************/
 
@@ -306,6 +308,10 @@ uint8_t PutBitmap(tImage* pImage, uint8_t action)
    uint8_t mask;
    uint16_t rows = pImage->height;
 
+   #ifdef TIMING_TEST
+   GPIO_ResetBits(LED_PORT, LED_PIN);
+   #endif
+
    /* Work out how many frame buffer bytes we will be writing to */
    n_fb = (GraphCtx.bit_pos + pImage->width +7) >> 3;
    n_img = (pImage->width+7) >> 3;
@@ -343,6 +349,10 @@ uint8_t PutBitmap(tImage* pImage, uint8_t action)
 
    GraphCtx.pBuff = p_finish;
    GraphCtx.bit_pos = (GraphCtx.bit_pos + pImage->width) & 0x7;
+
+   #ifdef TIMING_TEST
+   GPIO_SetBits(LED_PORT, LED_PIN);
+   #endif
 
    return pImage->width;
 }

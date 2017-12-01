@@ -65,7 +65,10 @@
 #define ALIEN_DELAY_BASE      150U           /* Base delay between alien movements */
 #define ALIEN_DELAY_INC       VIDEO_COUNTS(ALIEN_DELAY_BASE)
 
-#define ALIEN_STEP            2
+#define ALIEN_STEP            2              /* Use for left-right motion of aliens */
+
+#define ALIEN_DESTROY_TIME    200
+#define ALIEN_DESTROY_COUNTS  VIDEO_COUNTS(ALIEN_DESTROY_TIME)
 
 /* Controls                 */
 #define BTN_FIRE           GAME_BTN_1
@@ -73,7 +76,8 @@
 #define BTN_RIGHT          GAME_BTN_2
 
 /***** Types      *************************************************/
-typedef enum {SPRITE_PRESENT, SPRITE_HIT, SPRITE_DESTROYED} tSpriteState;
+typedef enum {SPRITE_PRESENT = 0, SPRITE_HIT = 1, SPRITE_DESTROYED} tSpriteState;
+typedef enum {FALSE, TRUE} tBool;
 
 
 typedef struct
@@ -82,12 +86,13 @@ typedef struct
    uint16_t       x_ofst;
    uint16_t       y_ofst;
    uint16_t       x_interval;
-   tSpriteState   sprite_state[ALIENS_PER_ROW];
+   uint8_t        num_destroyed;   
+   tSpriteState   sprite_state[ALIENS_PER_ROW];    
 } tAlienRow;
 
 
 /***** Storage    *************************************************/
-static tAlienRow Aliens[5] = {
+static tAlienRow Aliens[NUM_ALIEN_ROWS] = {
       {&Invader30pt_1, 2, INVADER_Y_OFST(0), HORIZ_SPACING},
       {&Invader20pt_1, 0, INVADER_Y_OFST(1), HORIZ_SPACING},
       {&Invader20pt_1, 0, INVADER_Y_OFST(2), HORIZ_SPACING},
@@ -115,6 +120,7 @@ static struct
    uint8_t  level;
    uint8_t  num_living_aliens;
    uint8_t  num_alien_columns;
+   uint8_t  destroyed_per_column[ALIENS_PER_ROW];
 } gameCtx;
 
 /* Sprite table for aliens animation  */
@@ -134,8 +140,10 @@ void GameScreenInit(uint16_t level);
 void DrawLaserStatus(uint8_t action);
 void DrawLaser(uint16_t button_status);
 uint8_t DrawAliens(void);
+uint8_t AnimateAliens(void);
 uint8_t MoveAliens(void);
 void DrawShelter(uint8_t n);
+void DestroyAlien(uint16_t row, uint16_t column);
 void InitialiseObjects(void);
 
 /***** Exported functions  ****************************************/
@@ -149,10 +157,8 @@ void InvadersGame(t_ButtonEvent button_event)
 {
    static uint8_t vBlankEvent = 0;
    static uint8_t alien_redraw = 0;
-   static uint8_t animation_scheduler = 0;
    static enum {GAME_INIT, GAME_PLAY, GAME_END} game_state = GAME_INIT;
    uint16_t btn_status;
-   uint16_t count;
 
    if (IsVblankActive() != 0)
    {
@@ -184,8 +190,6 @@ void InvadersGame(t_ButtonEvent button_event)
             case GAME_END:
             break;   
          }
-         if(++animation_scheduler >= 3)
-            animation_scheduler = 0;
       }
    }
    else
@@ -198,25 +202,9 @@ void InvadersGame(t_ButtonEvent button_event)
             /* Screen being rendered - do non display related tasks such as hit detection */
             if(alien_redraw == 0)
             {
-               if(++gameCtx.alien_anim_timer >= ALIEN_ANIMATION_INC)
-               {
-                  gameCtx.alien_anim_timer = 0;
-                  if(gameCtx.i_alien_bmp == 0)
-                  {
-                     gameCtx.i_alien_bmp = 1;
-                     alien_redraw = 1;
-                  }
-                  else
-                  {
-                     gameCtx.i_alien_bmp = 0;
-                     alien_redraw = 1;
-                  }
-                  for(count = 0 ; count < NUM_ALIEN_ROWS; count++)
-                  {  
-                     Aliens[count].pSprite = pAlienSprites[count][gameCtx.i_alien_bmp];
-                  }
-               }
-            
+               if(AnimateAliens() == 1)
+                  alien_redraw = 1;
+                  
                if(++gameCtx.alien_step_timer >= gameCtx.alien_step_interval)
                {
                   gameCtx.alien_step_timer = 0;
@@ -246,6 +234,7 @@ void GameScreenInit(uint16_t level)
    {
       x = gameCtx.alien_x + Aliens[row].x_ofst;
       y = gameCtx.alien_y + Aliens[row].y_ofst;
+      Aliens[row].num_destroyed = 0;
       for(count = 0; count < ALIENS_PER_ROW; count++)
       {
          Aliens[row].sprite_state[count] = SPRITE_PRESENT;
@@ -402,6 +391,38 @@ uint8_t DrawAliens(void)
 
 
 /**
+*  @fn         AnimateAliens
+*  @brief      Carried out bitmap swapping for alien animation
+*/
+uint8_t AnimateAliens(void)
+{
+   uint8_t alien_redraw = 0;
+   uint16_t count;
+   
+   if(++gameCtx.alien_anim_timer >= ALIEN_ANIMATION_INC)
+   {
+      gameCtx.alien_anim_timer = 0;
+      if(gameCtx.i_alien_bmp == 0)
+      {
+         gameCtx.i_alien_bmp = 1;
+         alien_redraw = 1;
+      }
+      else
+      {
+         gameCtx.i_alien_bmp = 0;
+         alien_redraw = 1;
+      }
+      for(count = 0 ; count < NUM_ALIEN_ROWS; count++)
+      {  
+         Aliens[count].pSprite = pAlienSprites[count][gameCtx.i_alien_bmp];
+      }
+   }
+   
+   return alien_redraw;
+}
+
+
+/**
 *  @fn         MoveAliens
 *  @return     1 if game over
 *  @brief      Calculates new position for aliens
@@ -453,6 +474,22 @@ void DrawShelter(uint8_t n)
    PutBitmap(&gameCtx.shelters[n], GRAPH_SET);
 }
 
+/**
+*  @fn         DrawLaser
+*  @param[IN]  row
+*  @param[IN]  column
+*  @brief      Draws active laser on screen
+*/
+void DestroyAlien(uint16_t row, uint16_t column)
+{
+   if(Aliens[row].sprite_state[column] == SPRITE_PRESENT)
+   {
+      Aliens[row].sprite_state[column] = SPRITE_HIT;
+      gameCtx.destroyed_per_column[column]++;
+      Aliens[row].num_destroyed++;
+   }
+}
+
 
 /**
 *  @fn         InitialiseObjects
@@ -477,6 +514,11 @@ void InitialiseObjects(void)
    gameCtx.alien_new_x = LEFT_OFFSET;
    gameCtx.alien_new_y = TOP_ROW_OFFSET;
    gameCtx.alien_step = 0-ALIEN_STEP;
+   
+   for (i = 0; i < ALIENS_PER_ROW; i++) 
+   {
+      gameCtx.destroyed_per_column[i] = 0;
+   }
    
 /* Initialise shelter sprites in RAM */  
    n = ((Shelter.width+7)>>3) * (Shelter.height);
