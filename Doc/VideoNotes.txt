@@ -1,0 +1,65 @@
+PAL signal generation
+scanline = 64us = 15625kHz
+
+AHB1 = 36MHz max
+AHB2 = 72MHz max
+
+TIM1 on AHB2, rest on AHB1
+
+To get line freq on TIM1, overall divider wants to be 72e6/15.625e3 = 4608
+
+Suppose we wanted 1 count = 100ns (for handy pulse calculation) or 1 coun
+
+Then timer input divider = 4608/640 = 7.2
+Can PLL be adjusted to drop main clock?
+need 72 * 7/7.2 = 70MHz Nope!, next down is 64MHz gives overall division of 4096 - promising ...
+at full clock gives 64 clocks per us
+
+do a divide by 8 to give 8 clocks per us
+So counter reload = 512
+counter pre-div = 8
+
+Alternatively, leave main clock at 72MHz and use counter pre-div of 9
+
+Pixel clock will be determined by SPI clock.
+Clock divisor has to be a power of 2
+
+display area is 51.95us
+text safe area is 41.6us however this could maybe be pushed to 48?
+
+characters are going to be 8 pixels wide and its unlikely TV can do more than 30-40 columns
+Choose 30, this gives 240 horizontal pixels and a clock rate of
+1/(42us * 240) = 5.7MHz
+
+Clock options
+pre      72       64       56       48       40
+1        36       32       28       24       20   
+2        18       16       14       12       10
+4        9        8        7        6         5
+8        4.5(poss)4        3.5      3
+         2.25     2        1.75     1.5
+
+4.5MHz would give 42us x 4.5e6 = 189 pixels or 192 == 24 characters
+6MHz would give 42us x 6e6 = 252 pixels      32 chars
+5MHz would give 42us x 5e6  = 210 pixels     27 chars
+
+Other options are slow down main clock
+PLL      Sysclock    SPI clock
+9        72          9
+8        64          
+7        56
+6        48
+5        40
+
+We can get 240 lines by starting at line 47 and ending at line 286
+Ideal number of X pixels is therefore 320 (for 4:3)
+Text safe line width is 41.6us which would require a clock of 320/41.6u = 7.69
+In reality text safe can be stretched, so use 7MHz instead (sysclck = 56MHz)
+therefore for 320 px we need 320/7M = 45.7u 
+So reduce text offset to 2.5u and set sysclock to 56MHz
+With TMR1 prescale at 7 then remaining timings can be the same.
+
+
+
+
+
