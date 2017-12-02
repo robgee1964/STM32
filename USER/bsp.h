@@ -16,6 +16,11 @@
 #define LED_PORT                 GPIOC
 #define LED_PIN                  GPIO_Pin_12
 
+#define DEBUG_PORT               GPIOC
+#define DEBUG_PIN_1              GPIO_Pin_7
+#define DEBUG_PIN_2              GPIO_Pin_8
+#define DEBUG_PIN_3              GPIO_Pin_9
+
 #define GAME_BTN_PORT            GPIOC
 #define GAME_BTN_1               GPIO_Pin_0
 #define GAME_BTN_2               GPIO_Pin_1
