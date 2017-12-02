@@ -7,6 +7,7 @@
 
 /***** Include files  *********************************************/
 #include "stm32f10x.h"
+#include "bsp.h"
 #include "Video.h"
 
 /***** Constants  *************************************************/
@@ -61,7 +62,7 @@
 //#define TEST_PATTERN_ACTIVE
 #define TEST_HATCH_SIZE    20
 
-
+#define TIMING_TEST
 
 /***** Types      *************************************************/
 typedef enum {FRAME_SYNC, PRE_FRAME_SHORT, FRAME_ACTIVE, POST_FRAME_SHORT} Sync_State_e;
@@ -180,6 +181,9 @@ void TIM1_CC_IRQHandler(void)
                if(pVerticalBlankingCallback != 0)
                {
                   pVerticalBlankingCallback(0);
+                  #ifdef TIMING_TEST
+                  GPIO_SetBits(DEBUG_PORT, DEBUG_PIN_2);
+                  #endif
                }
             }
             else if(scan_line_count == (TEXT_END_LINE+1))
@@ -188,6 +192,9 @@ void TIM1_CC_IRQHandler(void)
                if(pVerticalBlankingCallback != 0)
                {
                   pVerticalBlankingCallback(1);
+                  #ifdef TIMING_TEST
+                  GPIO_ResetBits(DEBUG_PORT, DEBUG_PIN_2);
+                  #endif
                }
             }
             scan_line_count++;

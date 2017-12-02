@@ -39,8 +39,10 @@
 #define MAX_GAME_X            (NUM_X_PIXELS-MARGIN)
 #define MIN_GAME_X            (MARGIN)
 
-#define ALIENS_PER_ROW         11U
-#define NUM_ALIEN_ROWS         5U
+#define ALIENS_PER_ROW        11U
+#define NUM_ALIEN_ROWS        5U
+#define MAX_ALIEN_ROW         (NUM_ALIEN_ROWS-1U)
+#define MAX_ALIEN_COLUMN      (ALIENS_PER_ROW-1U)
 
 
 #define LASER_ADD          1
@@ -62,7 +64,7 @@
 #define MISSILE_INC_WIGGLE    VIDEO_COUNTS(MISSILE_SPEED_WIGGLE)
 #define MISSILE_INC_CROSS     VIDEO_COUNTS(MISSILE_SPEED_CROSS)
 
-#define ALIEN_DELAY_BASE      150U           /* Base delay between alien movements */
+#define ALIEN_DELAY_BASE      20U           /* Base delay between alien movements */
 #define ALIEN_DELAY_INC       VIDEO_COUNTS(ALIEN_DELAY_BASE)
 
 #define ALIEN_STEP            2              /* Use for left-right motion of aliens */
@@ -79,6 +81,7 @@
 #define BTN_RIGHT          GAME_BTN_2
 
 #define TIMING_TEST
+#define KILL_ALIEN_COLUMNS
 
 
 /***** Types      *************************************************/
@@ -118,14 +121,17 @@ static struct
    uint16_t alien_new_x;
    uint16_t alien_y;
    uint16_t alien_new_y;
+   uint8_t  num_living_aliens;
    uint8_t  i_alien_bmp;
    uint8_t  alien_step_timer;
    uint8_t  alien_step_interval;
    uint8_t  alien_anim_timer;
    uint8_t  num_lasers;
    uint8_t  level;
-   uint8_t  num_living_aliens;
-   uint8_t  num_alien_columns;
+   uint8_t  left_alien_column;
+   uint8_t  right_alien_column;
+   uint8_t  top_alien_row;
+   uint8_t  bottom_alien_row;
    uint8_t  destroyed_per_column[ALIENS_PER_ROW];
 } gameCtx;
 
@@ -186,14 +192,17 @@ void InvadersGame(t_ButtonEvent button_event)
             case GAME_PLAY:
                btn_status = ReadGameButtons();
                DrawLaser(btn_status);
-               if(alien_redraw == 0)
+               if(1)
+//               if(alien_redraw == 0)
                {
                   TestKillAliens(ReadGameButtons());
                   DrawDyingAliens();
                }
-               else   /* if(alien_redraw == 1)  */
+               if(alien_redraw == 1)
+//               else   /* if(alien_redraw == 1)  */
                {
-                  if(DrawAliens() == 1)
+                  while(DrawAliens() == 0);
+                  //if(DrawAliens() == 1)
                   {
                      alien_redraw = 0;
                   }
@@ -218,12 +227,13 @@ void InvadersGame(t_ButtonEvent button_event)
                alien_redraw = 1;
             }
             
-            if(alien_redraw == 0)
+//          if(alien_redraw == 0)
+            if(1)
             {
 //               if(AnimateAliens() == 1)
 //                  alien_redraw = 1;
                   
-               if(++gameCtx.alien_step_timer >= gameCtx.alien_step_interval)
+               if(gameCtx.alien_step_timer >= gameCtx.alien_step_interval)
                {
                   gameCtx.alien_step_timer = 0;
                   if(MoveAliens() == 1)
@@ -232,6 +242,7 @@ void InvadersGame(t_ButtonEvent button_event)
                      alien_redraw = 1;
                }
             }
+            gameCtx.alien_step_timer++;
          }
       }
    }
@@ -332,7 +343,7 @@ void DrawLaser(uint16_t button_status)
       }
       else if(IS_PRESSED(button_status, BTN_RIGHT))
       {
-         if((x_new = gameCtx.laser_x + LASER_INC) < (MAX_GAME_X-Laser.width))
+         if((x_new = gameCtx.laser_x + LASER_INC) <= (MAX_GAME_X-Laser.width+1))
             redraw = 1;
       }
       if(redraw == 1)
@@ -353,7 +364,7 @@ void DrawLaser(uint16_t button_status)
 */
 uint8_t DrawAliens(void)
 {
-   static int16_t row = NUM_ALIEN_ROWS-1;
+   static int8_t row = MAX_ALIEN_ROW;
    uint8_t count;
    uint8_t complete = 0;
    uint16_t x;
@@ -367,57 +378,36 @@ uint8_t DrawAliens(void)
    GPIO_ResetBits(DEBUG_PORT, DEBUG_PIN_1);
    #endif
    
-   /* Count up or down depending on direction, if moving right->left then redraw leftmost items first */
-//   if(gameCtx.alien_new_x < gameCtx.alien_x)
-   if(1)
+   x = gameCtx.alien_x + Aliens[row].x_ofst;
+   new_x = gameCtx.alien_new_x + Aliens[row].x_ofst;
+   for(count = gameCtx.left_alien_column; count <= gameCtx.right_alien_column; count++)
    {
-      x = gameCtx.alien_x + Aliens[row].x_ofst;
-      new_x = gameCtx.alien_new_x + Aliens[row].x_ofst;
-      for(count = 0; count < gameCtx.num_alien_columns; count++)
+      if(Aliens[row].sprite_state[count] == SPRITE_PRESENT)
       {
-         if(Aliens[row].sprite_state[count] == SPRITE_PRESENT)
-         {
-            /* Erase bitmaps at old position */
-            FillRectangle(x, y, x+w, y+h, GRAPH_CLEAR);
-            /* draw new bit map */
-            GotoXY(new_x, new_y);
-            PutBitmap((tImage*)Aliens[row].pSprite, GRAPH_SET);
-         }
-         else if(Aliens[row].sprite_state[count] < ALIEN_DESTROYED)
-         {
-            /* Erase bitmaps at old position */
-            FillRectangle(x-Aliens[row].x_ofst, y, 
-                        x+InvaderExplode.width-Aliens[row].x_ofst-1, 
-                          y+InvaderExplode.height-1, GRAPH_CLEAR);
-            /* draw new bit map */
-            GotoXY(new_x-Aliens[row].x_ofst, new_y);
-            PutBitmap((tImage*)&InvaderExplode, GRAPH_SET);
-         }
-         new_x += Aliens[row].x_interval;
-         x += Aliens[row].x_interval;
-      }
-   }
-   else
-   {
-      count = gameCtx.num_alien_columns;
-      x = Aliens[row].x_ofst + (Aliens[row].x_interval * gameCtx.num_alien_columns);
-      new_x = gameCtx.alien_new_x + x;
-      x += gameCtx.alien_x;
-      do
-      {
-         count--;
-         new_x -= Aliens[row].x_interval;
-         x -= Aliens[row].x_interval;
+         /* Erase bitmaps at old position */
          FillRectangle(x, y, x+w, y+h, GRAPH_CLEAR);
+         /* draw new bit map */
          GotoXY(new_x, new_y);
          PutBitmap((tImage*)Aliens[row].pSprite, GRAPH_SET);
-      } while(count > 0);
+      }
+      else if(Aliens[row].sprite_state[count] < ALIEN_DESTROYED)
+      {
+         /* Erase bitmaps at old position */
+         FillRectangle(x-Aliens[row].x_ofst, y, 
+                     x+InvaderExplode.width-Aliens[row].x_ofst-1, 
+                       y+InvaderExplode.height-1, GRAPH_CLEAR);
+         /* draw new bit map */
+         GotoXY(new_x-Aliens[row].x_ofst, new_y);
+         PutBitmap((tImage*)&InvaderExplode, GRAPH_SET);
+      }
+      new_x += Aliens[row].x_interval;
+      x += Aliens[row].x_interval;
    }
    
-   if(--row < 0)
+   if(--row < gameCtx.top_alien_row)
    {
       complete = 1;
-      row = NUM_ALIEN_ROWS-1;
+      row = gameCtx.bottom_alien_row;
       gameCtx.alien_x = gameCtx.alien_new_x;
       gameCtx.alien_y = gameCtx.alien_new_y;
    }
@@ -471,12 +461,73 @@ uint8_t MoveAliens(void)
    uint16_t x, y;
    uint8_t game_over = 0;
    uint16_t w;
-   /* Update number of destroyed aliens */
+   uint16_t column, row, alien_col_left, alien_col_right;
+   tBool finding_left = TRUE;
+   tBool finding_bottom = TRUE;
+   uint16_t bottom_alien_row = gameCtx.bottom_alien_row;
+   uint16_t top_alien_row = gameCtx.top_alien_row;
+
+   alien_col_left = gameCtx.left_alien_column;
+   alien_col_right = gameCtx.right_alien_column;
+  
+   /* Check if left most or rightmost columns are empty */
+   for(column = gameCtx.left_alien_column; column <= gameCtx.right_alien_column; column++)
+   {
+      if(finding_left == TRUE)
+      {
+         if(gameCtx.destroyed_per_column[column] < NUM_ALIEN_ROWS)
+            finding_left = FALSE;
+         else
+         {
+            alien_col_left++;
+         }
+      }
+      if(finding_left == FALSE)
+      {
+         if(gameCtx.destroyed_per_column[alien_col_right] < NUM_ALIEN_ROWS)
+         {
+            gameCtx.right_alien_column = alien_col_right;
+            break;
+         }
+         else
+            alien_col_right--;
+      }
+   }
+   gameCtx.alien_x += (HORIZ_SPACING*(alien_col_left - gameCtx.left_alien_column));
+   gameCtx.left_alien_column = alien_col_left;
+
    
+   /* See if lower rows have been emptied */
+   row = NUM_ALIEN_ROWS-1;
+   do
+   {
+      if(finding_bottom == TRUE)
+      {
+         if(Aliens[row].num_destroyed < ALIENS_PER_ROW)
+            finding_bottom = FALSE;
+         else
+         {
+            bottom_alien_row--;
+         }
+      }
+      else if(finding_bottom == FALSE)
+      {
+         if(Aliens[top_alien_row].num_destroyed < ALIENS_PER_ROW)
+         {
+            gameCtx.top_alien_row = top_alien_row;
+            break;
+         }
+         else
+            top_alien_row++;
+      }
+   }
+   while(row-- > gameCtx.top_alien_row);
+   gameCtx.bottom_alien_row = bottom_alien_row;
    
    /* See if we are going to hit the screen edges */
    x = gameCtx.alien_x + gameCtx.alien_step;
-   w = (gameCtx.num_alien_columns * (HORIZ_SPACING-1)) - 1;
+   w = ((alien_col_right-alien_col_left) * (HORIZ_SPACING)) + 
+                     Aliens[bottom_alien_row].pSprite->width-1;
    if((x >= MIN_GAME_X) && (x + w <= MAX_GAME_X))
    {
       gameCtx.alien_new_x = x;
@@ -484,11 +535,11 @@ uint8_t MoveAliens(void)
    }
    else
    {
-      y = gameCtx.alien_y + Aliens[4].pSprite->height;
+      y = gameCtx.alien_y + Aliens[bottom_alien_row].pSprite->height;
       gameCtx.alien_step = 0 - gameCtx.alien_step;
       x = gameCtx.alien_x + gameCtx.alien_step;
       gameCtx.alien_new_x = x;
-      if((y+INVADER_Y_OFST(4)) >= (LASER_Y-Aliens[4].pSprite->height))
+      if((y+INVADER_Y_OFST(bottom_alien_row)) >= (LASER_Y-Aliens[bottom_alien_row].pSprite->height))
       {
          game_over = 1;
       }
@@ -539,11 +590,11 @@ void DrawDyingAliens(void)
 {
    uint16_t x, y, row, column;
    
-   y = gameCtx.alien_y;
-   for(row = 0; row < NUM_ALIEN_ROWS; row++)
+   y = gameCtx.alien_y + (gameCtx.top_alien_row * VERT_SPACING);
+   for(row = gameCtx.top_alien_row; row <= gameCtx.bottom_alien_row; row++)
    {
       x = gameCtx.alien_x;
-      for(column = 0; column < ALIENS_PER_ROW; column++)
+      for(column = gameCtx.left_alien_column; column <= gameCtx.right_alien_column; column++)
       {
          switch(Aliens[row].sprite_state[column])
          {
@@ -563,6 +614,10 @@ void DrawDyingAliens(void)
                if(++Aliens[row].sprite_state[column] >= ALIEN_DESTROYED)
                {
                   FillRectangle(x, y, x+InvaderExplode.width-1, y+InvaderExplode.height-1, GRAPH_CLEAR);
+                  gameCtx.destroyed_per_column[column]++;
+                  Aliens[row].num_destroyed++;
+                  gameCtx.num_living_aliens--;
+                  gameCtx.alien_step_interval = (gameCtx.num_living_aliens/2) + ALIEN_DELAY_INC;
                }
             break;
          }
@@ -589,13 +644,16 @@ void InitialiseObjects(void)
    gameCtx.laser_inc = (NUM_X_PIXELS-LASER_WIDTH)/2U;
    gameCtx.num_living_aliens = ALIENS_PER_ROW * NUM_ALIEN_ROWS;
    gameCtx.alien_step_timer = 0;
-   gameCtx.alien_step_interval = (gameCtx.num_living_aliens >> 1) + ALIEN_DELAY_INC;
-   gameCtx.num_alien_columns = ALIENS_PER_ROW;
+   gameCtx.alien_step_interval = (gameCtx.num_living_aliens/2) + ALIEN_DELAY_INC;
    gameCtx.alien_x = LEFT_OFFSET;
    gameCtx.alien_y = TOP_ROW_OFFSET;
    gameCtx.alien_new_x = LEFT_OFFSET;
    gameCtx.alien_new_y = TOP_ROW_OFFSET;
    gameCtx.alien_step = 0-ALIEN_STEP;
+   gameCtx.top_alien_row = 0;
+   gameCtx.bottom_alien_row = MAX_ALIEN_ROW;
+   gameCtx.right_alien_column = MAX_ALIEN_COLUMN;
+   gameCtx.left_alien_column = 0;
    
    for (i = 0; i < ALIENS_PER_ROW; i++) 
    {
@@ -625,12 +683,19 @@ void InitialiseObjects(void)
 void TestKillAliens(uint16_t button_status)
 {
    static uint16_t button_status_prev;
-   uint16_t alien_number, row, column;
+   static uint8_t kill_col = 0;
+   uint16_t row;
+   #ifdef KILL_RANDOM_ALIENS
+   uint16_t alien_number, column;
+   #elif defined KILL_ALIEN_COLUMNS
+   static uint16_t kill_count = 0;
+   #endif
    
    if(gameCtx.num_living_aliens > 0)
    {
       if((IS_PRESSED(button_status, BTN_FIRE)) && !(IS_PRESSED(button_status_prev, BTN_FIRE)))
       {
+         #ifdef KILL_RANDOM_ALIENS
          while(1)
          {
             alien_number = rand() % (ALIENS_PER_ROW*NUM_ALIEN_ROWS);
@@ -642,6 +707,24 @@ void TestKillAliens(uint16_t button_status)
                break;
             }
          }
+         #elif defined KILL_ALIEN_COLUMNS
+         for(row = 0; row < NUM_ALIEN_ROWS; row++)
+         {
+            if(Aliens[row].sprite_state[kill_col] == SPRITE_PRESENT)
+            {
+               KillAlien(row, kill_col);
+               if(++kill_count >= NUM_ALIEN_ROWS)
+               {
+                  kill_count = 0;
+                  if(kill_col == gameCtx.left_alien_column)
+                     kill_col = gameCtx.right_alien_column;
+                  else
+                     kill_col = gameCtx.left_alien_column;
+               }
+               break;
+            }
+         }
+         #endif
       }
    }
    
