@@ -30,6 +30,7 @@ void GraphicsInit(void);
 void GraphicsTick(void);
 void PutPixel(uint16_t x, uint16_t y, uint8_t action);
 void PutLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t action);
+void PutVline(uint16_t x, uint16_t y, uint16_t len, uint8_t action);
 void PutRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t action);
 void FillRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t action);
 void PutCircle(uint16_t cx, uint16_t cy, uint16_t radius, uint16_t action);

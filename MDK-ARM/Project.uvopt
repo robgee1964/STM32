@@ -404,7 +404,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>35</TopLine>
+      <TopLine>43</TopLine>
       <CurrentLine>58</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\stm32f10x_it.c</PathWithFileName>
@@ -428,12 +428,12 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>4</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>380</TopLine>
-      <CurrentLine>395</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Graphics.c</PathWithFileName>
       <FilenameWithoutPath>Graphics.c</FilenameWithoutPath>
@@ -474,7 +474,7 @@
       <Focus>0</Focus>
       <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>14</TopLine>
+      <TopLine>1</TopLine>
       <CurrentLine>37</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\bsp.c</PathWithFileName>
@@ -500,10 +500,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>31</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>39</TopLine>
-      <CurrentLine>67</CurrentLine>
+      <TopLine>419</TopLine>
+      <CurrentLine>438</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Invaders.c</PathWithFileName>
       <FilenameWithoutPath>Invaders.c</FilenameWithoutPath>
@@ -804,7 +804,7 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>2616</TopLine>
-      <CurrentLine>2638</CurrentLine>
+      <CurrentLine>2641</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_tim.c</FilenameWithoutPath>
@@ -1013,8 +1013,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>377</TopLine>
-      <CurrentLine>386</CurrentLine>
+      <TopLine>39</TopLine>
+      <CurrentLine>39</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Video.c</PathWithFileName>
       <FilenameWithoutPath>Video.c</FilenameWithoutPath>
@@ -1151,36 +1151,68 @@
     </WindowPosition>
   </AlienFiles>
 
+  <AlienFiles>
+    <PathWithFilename>C:\Projects\STM32\Video\USER\Graphics.h</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>33</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
   <MDIGroups>
     <Orientation>3</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>62</Size>
-      <ActiveTab>4</ActiveTab>
+      <ActiveTab>2</ActiveTab>
       <Documents>
+        <Doc>
+          <Name>..\USER\Graphics.h</Name>
+          <ColumnNumber>13</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>33</CurrentLine>
+        </Doc>
         <Doc>
           <Name>..\USER\Invaders.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>371</TopLine>
-          <CurrentLine>377</CurrentLine>
+          <TopLine>419</TopLine>
+          <CurrentLine>438</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\stm32f10x_it.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>35</TopLine>
+          <TopLine>43</TopLine>
           <CurrentLine>58</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\Video.c</Name>
-          <ColumnNumber>26</ColumnNumber>
-          <TopLine>156</TopLine>
-          <CurrentLine>185</CurrentLine>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>39</TopLine>
+          <CurrentLine>39</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</Name>
           <ColumnNumber>0</ColumnNumber>
           <TopLine>2616</TopLine>
-          <CurrentLine>2638</CurrentLine>
+          <CurrentLine>2641</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\main.c</Name>
@@ -1191,8 +1223,8 @@
         <Doc>
           <Name>..\USER\Graphics.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>380</TopLine>
-          <CurrentLine>395</CurrentLine>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\Invaders.h</Name>
@@ -1257,7 +1289,7 @@
         <Doc>
           <Name>..\USER\bsp.c</Name>
           <ColumnNumber>33</ColumnNumber>
-          <TopLine>14</TopLine>
+          <TopLine>1</TopLine>
           <CurrentLine>37</CurrentLine>
         </Doc>
       </Documents>

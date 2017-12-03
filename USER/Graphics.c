@@ -31,8 +31,7 @@ static struct
 
 /***** Local prototypes    ****************************************/
 static void VblankCallback(uint8_t event);
-static void Vline(uint16_t x, uint16_t y, uint16_t len, uint8_t action);
-static void Hline(uint16_t x, uint16_t y, uint16_t len, uint8_t action);
+static void PutHline(uint16_t x, uint16_t y, uint16_t len, uint8_t action);
 static void plot8points(uint16_t cx, uint16_t cy, uint16_t x, uint16_t y, uint16_t Action);
 static void plot4points(uint16_t cx, uint16_t cy, uint16_t x, uint16_t y, uint16_t Action);
 
@@ -204,6 +203,39 @@ void PutLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t action)
    }
 }
 
+/**
+*  @fn        PutVline
+*  @param[IN] x coordinate
+*  @param[IN] y coordinate
+*  @param[IN] length of line
+*  @param[IN] action, 1 = set, 0 = clear
+*  @brief     Draws vertical line starting from specified point
+*/
+void PutVline(uint16_t x, uint16_t y, uint16_t len, uint8_t action)
+{
+   /* To do a vertical line just work identify start byte then increment by NUM_X_BYTES each time */
+   uint16_t x_index = x >> 3U; 
+   uint16_t bit_pos = x & 7;
+   uint8_t  mask = (0x80 >> bit_pos);
+   uint8_t *pFrameBuff = &FrameBuff[y][x_index];
+
+   if(action == 0)
+   {
+      mask = ~mask;
+   }
+
+   while(len-- > 0)
+   {
+      if(action == 1)
+         *pFrameBuff |= mask;
+      else if(action == 0)
+         *pFrameBuff &= mask;
+      pFrameBuff += NUM_X_BYTES;
+   }
+
+}
+
+
 
 /**
 *  @fn        PutRectangle
@@ -216,10 +248,10 @@ void PutLine(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t action)
 */
 void PutRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t action)
 {
-   Hline(x1, y1, x2-x1+1, action);     /* top            */
-   Vline(x1, y1+1, y2-y1-1, action);   /* left side      */
-   Vline(x2, y1+1, y2-y1-1, action);   /* right side     */
-   Hline(x1, y2,  x2-x1+1, action);    /* bottom         */
+   PutHline(x1, y1, x2-x1+1, action);     /* top            */
+   PutVline(x1, y1+1, y2-y1-1, action);   /* left side      */
+   PutVline(x2, y1+1, y2-y1-1, action);   /* right side     */
+   PutHline(x1, y2,  x2-x1+1, action);    /* bottom         */
 }
 
 /**
@@ -238,7 +270,7 @@ void FillRectangle(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2, uint8_t a
 
    for(i = 0; i < count; i++)
    {
-      Hline(x1, y1+i, x2-x1+1, action);  
+      PutHline(x1, y1+i, x2-x1+1, action);  
    }
 }
 
@@ -409,48 +441,17 @@ static void VblankCallback(uint8_t event)
    vBlankActive = event;
 }
 
-/**
-*  @fn        Vline
-*  @param[IN] x coordinate
-*  @param[IN] y coordinate
-*  @param[IN] length of line
-*  @param[IN] action, 1 = set, 0 = clear
-*  @brief     Draws vertical line starting from specified point
-*/
-static void Vline(uint16_t x, uint16_t y, uint16_t len, uint8_t action)
-{
-   /* To do a vertical line just work identify start byte then increment by NUM_X_BYTES each time */
-   uint16_t x_index = x >> 3U; 
-   uint16_t bit_pos = x & 7;
-   uint8_t  mask = (0x80 >> bit_pos);
-   uint8_t *pFrameBuff = &FrameBuff[y][x_index];
-
-   if(action == 0)
-   {
-      mask = ~mask;
-   }
-
-   while(len-- > 0)
-   {
-      if(action == 1)
-         *pFrameBuff |= mask;
-      else if(action == 0)
-         *pFrameBuff &= mask;
-      pFrameBuff += NUM_X_BYTES;
-   }
-
-}
 
 
 /**
-*  @fn        Hline
+*  @fn        PutHline
 *  @param[IN] x coordinate
 *  @param[IN] y coordinate
 *  @param[IN] length of line
 *  @param[IN] action, 1 = set, 0 = clear
 *  @brief     Draws horizontal line starting from specified point
 */
-static void Hline(uint16_t x, uint16_t y, uint16_t len, uint8_t action)
+static void PutHline(uint16_t x, uint16_t y, uint16_t len, uint8_t action)
 {
    /* To do a vertical line identify start byte then just keep filling the row */
    uint16_t x_index = x >> 3U; 

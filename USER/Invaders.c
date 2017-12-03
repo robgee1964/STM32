@@ -16,6 +16,7 @@
 #include "Invaders.h"
 
 /***** Constants  *************************************************/
+#define MAX_UINT16            0xffffU
 #define MARGIN                40U
 #define TOP_ROW_OFFSET        35U
 #define HORIZ_SPACING         20U
@@ -29,13 +30,15 @@
 #define SHELTER_Y             (NUM_Y_PIXELS-56U)
 #define LASER_HEIGHT          8U
 #define LASER_Y               (NUM_Y_PIXELS-28U)
+#define LASER_MISSILE_REST_Y  (LASER_Y)
 #define BOTTOM_ROW_Y          (NUM_Y_PIXELS-13U)
 #define LASER_WIDTH           13U
 #define LASER_STATUS_Y        BOTTOM_ROW_Y
 #define LASER_GAP             7U
 #define NUM_LASERS            3U
 #define FONT_WIDTH            6U
-                              
+
+#define MIN_GAME_Y            20U                              
 #define MAX_GAME_X            (NUM_X_PIXELS-MARGIN)
 #define MIN_GAME_X            (MARGIN)
 
@@ -64,7 +67,7 @@
 #define MISSILE_INC_WIGGLE    VIDEO_COUNTS(MISSILE_SPEED_WIGGLE)
 #define MISSILE_INC_CROSS     VIDEO_COUNTS(MISSILE_SPEED_CROSS)
 
-#define ALIEN_DELAY_BASE      20U           /* Base delay between alien movements */
+#define ALIEN_DELAY_BASE      60U           /* Base delay between alien movements */
 #define ALIEN_DELAY_INC       VIDEO_COUNTS(ALIEN_DELAY_BASE)
 
 #define ALIEN_STEP            2              /* Use for left-right motion of aliens */
@@ -116,6 +119,7 @@ static struct
    tImage   shelters[NUM_SHELTERS];
    uint16_t laser_x;
    int16_t  laser_inc;
+   uint16_t  laser_missile_y;
    int16_t  alien_step; 
    uint16_t alien_x;
    uint16_t alien_new_x;
@@ -148,17 +152,19 @@ const tImage* pAlienSprites[][2] = {
 
 
 /***** Local prototypes    ****************************************/
-void GameScreenInit(uint16_t level);
-void DrawLaserStatus(uint8_t action);
-void DrawLaser(uint16_t button_status);
-uint8_t DrawAliens(void);
-uint8_t AnimateAliens(void);
-uint8_t MoveAliens(void);
-void DrawShelter(uint8_t n);
-void KillAlien(uint16_t row, uint16_t column);
-void DrawDyingAliens(void);
-void InitialiseObjects(void);
-void TestKillAliens(uint16_t button_status);
+static void GameScreenInit(uint16_t level);
+static void DrawLaserStatus(uint8_t action);
+static void DrawLaser(uint16_t button_status);
+static uint16_t FireLaser(uint16_t button_status);
+static tBool CheckLaserHits(uint16_t laser_x);
+static uint8_t DrawAliens(void);
+static uint8_t AnimateAliens(void);
+static uint8_t MoveAliens(void);
+static void DrawShelter(uint8_t n);
+static void KillAlien(uint16_t row, uint16_t column);
+static void DrawDyingAliens(void);
+static void InitialiseObjects(void);
+static void TestKillAliens(uint16_t button_status);
 
 /***** Exported functions  ****************************************/
 
@@ -192,10 +198,11 @@ void InvadersGame(t_ButtonEvent button_event)
             case GAME_PLAY:
                btn_status = ReadGameButtons();
                DrawLaser(btn_status);
+               FireLaser(btn_status);
                if(1)
 //               if(alien_redraw == 0)
                {
-                  TestKillAliens(ReadGameButtons());
+                  //TestKillAliens(ReadGameButtons());
                   DrawDyingAliens();
                }
                if(alien_redraw == 1)
@@ -255,7 +262,7 @@ void InvadersGame(t_ButtonEvent button_event)
 *  @param[IN]  level
 *  @brief      Initialises game screen for current level
 */
-void GameScreenInit(uint16_t level)
+static void GameScreenInit(uint16_t level)
 {
    uint16_t row, count;
    uint16_t x, y;
@@ -307,7 +314,7 @@ void GameScreenInit(uint16_t level)
 *  @param[IN]  action - add or remove
 *  @brief      Draws number of lasers remaining
 */
-void DrawLaserStatus(uint8_t action)
+static void DrawLaserStatus(uint8_t action)
 {
    int16_t x;
    if (action == LASER_REMOVE)
@@ -328,9 +335,10 @@ void DrawLaserStatus(uint8_t action)
 
 /**
 *  @fn         DrawLaser
+*  @param[IN]  button status
 *  @brief      Draws active laser on screen
 */
-void DrawLaser(uint16_t button_status)
+static void DrawLaser(uint16_t button_status)
 {
    int16_t x_new;
    uint8_t redraw = 0;
@@ -357,12 +365,103 @@ void DrawLaser(uint16_t button_status)
 }
 
 /**
+*  @fn         FireLaser
+*  @param[IN]  button status
+*  @return     laser x position or 0xffff if laser inactive
+*  @brief      Starts laser missile on screen
+*/
+static uint16_t FireLaser(uint16_t button_status)
+{
+   static uint16_t button_status_prev = 0x07;
+   static uint16_t missile_x;
+   tBool hit;
+
+   /* Animate missile  */
+   if(gameCtx.laser_missile_y != LASER_MISSILE_REST_Y)
+   {
+      PutVline(missile_x, gameCtx.laser_missile_y, 3, GRAPH_CLEAR);
+      
+      if((hit = CheckLaserHits(missile_x)) == FALSE)
+         gameCtx.laser_missile_y-=MISSILE_INC_LASER;
+
+      if((gameCtx.laser_missile_y <= MIN_GAME_Y) || (hit == TRUE))
+      {
+         gameCtx.laser_missile_y = LASER_MISSILE_REST_Y;
+      }
+      else
+         PutVline(missile_x, gameCtx.laser_missile_y, 3, GRAPH_SET);
+
+   }
+
+   if((IS_PRESSED(button_status, BTN_FIRE)) && (!IS_PRESSED(button_status_prev, BTN_FIRE)))
+   {
+      if(gameCtx.laser_missile_y == LASER_MISSILE_REST_Y)
+      {
+         missile_x = gameCtx.laser_x + (Laser.width>>1);
+         gameCtx.laser_missile_y -= 3;
+         PutVline(missile_x, gameCtx.laser_missile_y, 3, GRAPH_SET);
+      }
+   }
+   button_status_prev = button_status;
+   if(gameCtx.laser_missile_y != LASER_MISSILE_REST_Y)
+      return missile_x;
+   else
+      return MAX_UINT16;
+}
+
+/**
+*  @fn         CheckLaserHits
+*  @param[IN]  laser missile x coordinate
+*  @return     TRUE if laser missile hit alien
+*  @brief      Checks if missile hit alien
+*/
+static tBool CheckLaserHits(uint16_t laser_x)
+{
+   uint16_t x_left, x_right;
+   uint16_t y_alien;
+   uint16_t column;
+   static uint16_t row = MAX_ALIEN_ROW;
+   tBool hit = FALSE;
+   
+   /* Work out lowest y coordinate of aliens array */
+   y_alien = gameCtx.alien_y + Aliens[row].y_ofst + Aliens[row].pSprite->height-1;
+   if(gameCtx.laser_missile_y <= y_alien)
+   {
+      x_left = gameCtx.alien_x + Aliens[row].x_ofst;
+      for(column = gameCtx.left_alien_column; column <= gameCtx.right_alien_column; column++)
+      {
+         if(Aliens[row].sprite_state[column] == SPRITE_PRESENT)
+         {
+            x_right = x_left + Aliens[row].pSprite->width-1;
+            if((laser_x >= x_left) && (laser_x <= x_right))
+            {
+               hit = TRUE;
+               KillAlien(row, column);
+               row = gameCtx.bottom_alien_row;
+               break;
+            }
+         }
+         x_left += HORIZ_SPACING;
+      }
+      if(hit == FALSE)
+      {
+         if(row > gameCtx.top_alien_row)
+            row--;
+         else
+            row = gameCtx.bottom_alien_row;
+      }
+   }
+   return hit;
+}
+
+
+/**
 *  @fn         DrawAliens
 *  @return     1 if complete, 0 otherwise
 *  @brief      Renders aliens on screen
 *              Designed to be called over more than one blanking interval
 */
-uint8_t DrawAliens(void)
+static uint8_t DrawAliens(void)
 {
    static int8_t row = MAX_ALIEN_ROW;
    uint8_t count;
@@ -423,7 +522,7 @@ uint8_t DrawAliens(void)
 *  @fn         AnimateAliens
 *  @brief      Carried out bitmap swapping for alien animation
 */
-uint8_t AnimateAliens(void)
+static uint8_t AnimateAliens(void)
 {
    uint8_t alien_redraw = 0;
    uint16_t count;
@@ -456,7 +555,7 @@ uint8_t AnimateAliens(void)
 *  @return     1 if game over
 *  @brief      Calculates new position for aliens
 */
-uint8_t MoveAliens(void)
+static uint8_t MoveAliens(void)
 {
    uint16_t x, y;
    uint8_t game_over = 0;
@@ -559,7 +658,7 @@ uint8_t MoveAliens(void)
 *  @param[IN]  Shelter to draw/update
 *  @brief      Draws active laser on screen
 */
-void DrawShelter(uint8_t n)
+static void DrawShelter(uint8_t n)
 {
    uint16_t x = SHELTER_MARGIN + (n * SHELTER_SPACING);
    FillRectangle(x, SHELTER_Y, x+Shelter.width-1, SHELTER_Y+Shelter.height-1, GRAPH_CLEAR);
@@ -573,7 +672,7 @@ void DrawShelter(uint8_t n)
 *  @param[IN]  column
 *  @brief      Draws active laser on screen
 */
-void KillAlien(uint16_t row, uint16_t column)
+static void KillAlien(uint16_t row, uint16_t column)
 {
    if(Aliens[row].sprite_state[column] == SPRITE_PRESENT)
    {
@@ -586,7 +685,7 @@ void KillAlien(uint16_t row, uint16_t column)
 *  @fn         DrawDyingAliens
 *  @brief      Draws active laser on screen
 */
-void DrawDyingAliens(void)
+static void DrawDyingAliens(void)
 {
    uint16_t x, y, row, column;
    
@@ -632,7 +731,7 @@ void DrawDyingAliens(void)
 *  @fn         InitialiseObjects
 *  @brief      Initialises game variables
 */
-void InitialiseObjects(void)
+static void InitialiseObjects(void)
 {
    uint16_t n,i;
    
@@ -642,6 +741,7 @@ void InitialiseObjects(void)
    gameCtx.level = 0;
    gameCtx.laser_x = (NUM_X_PIXELS-LASER_WIDTH)/2U;
    gameCtx.laser_inc = (NUM_X_PIXELS-LASER_WIDTH)/2U;
+   gameCtx.laser_missile_y = LASER_MISSILE_REST_Y;
    gameCtx.num_living_aliens = ALIENS_PER_ROW * NUM_ALIEN_ROWS;
    gameCtx.alien_step_timer = 0;
    gameCtx.alien_step_interval = (gameCtx.num_living_aliens/2) + ALIEN_DELAY_INC;
@@ -680,7 +780,7 @@ void InitialiseObjects(void)
 *  @param[IN]  button_status
 *  @brief      Initialises game variables
 */
-void TestKillAliens(uint16_t button_status)
+static void TestKillAliens(uint16_t button_status)
 {
    static uint16_t button_status_prev;
    static uint8_t kill_col = 0;
