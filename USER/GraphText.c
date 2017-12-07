@@ -59,7 +59,7 @@ void SetFont(fontselect_t font)
 }
 
 /**
-*  @fn         PutChar
+*  @fn         GPutChar
 *  @param[IN]  ASCII code
 *  @param[IN]  action - selects plot action
 *     @arg     0 - clear
@@ -68,7 +68,7 @@ void SetFont(fontselect_t font)
 *  @return     number of pixels written in X direction
 *  @brief      Renders single character
 */
-uint16_t PutChar(uint8_t ASCI, uint8_t action)
+uint16_t GPutChar(uint8_t ASCI, uint8_t action)
 {
    const tChar* fontch_p;
    fontch_p = GetFontChar(ASCI);
@@ -91,7 +91,7 @@ uint16_t PutText(uint8_t *str, uint8_t action)
  
    while(*str != 0)
    {
-      x_pixels += PutChar(*str++, action);  
+      x_pixels += GPutChar(*str++, action);
    }
 
    return x_pixels;

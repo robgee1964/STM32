@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dependencies>
+   <includePath signature="/I..\..\..\..\..\Projects\STM32\Co-Video\cmsis_boot /I..\..\..\..\..\Projects\STM32\Co-Video\USER\Fonts /I..\..\..\..\..\Projects\STM32\Co-Video\stm_lib /I..\..\..\..\..\Projects\STM32\Co-Video\cmsis /I..\..\..\..\..\Projects\STM32\Co-Video\USER /I..\..\..\..\..\Projects\STM32\Co-Video\stm_lib\inc /I..\..\..\..\..\Projects\STM32\Co-Video\USER\Sprites /I..\..\..\..\..\Projects\STM32\Co-Video /I..\..\..\..\..\Projects\STM32">
+      <source file="..\..\..\cmsis\core_cm3.h" lastModified="1602cf7006a">
+         <include file="..\..\..\cmsis\core_cmInstr.h"/>
+         <include file="..\..\..\cmsis\core_cmFunc.h"/>
+      </source>
+      <source file="..\..\..\USER\BmpTest.h" lastModified="15fff48725b">
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_spi.c" lastModified="1602cf762ae">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_spi.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\USER\BmpTest.c" lastModified="1602d8a3b17">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\bsp.h"/>
+         <include file="..\..\..\USER\Graphics.h"/>
+         <include file="..\..\..\USER\GraphText.h"/>
+         <include file="..\..\..\USER\BmpTest.h"/>
+         <include file="..\..\..\USER\Sprites\Sprites.h"/>
+      </source>
+      <source file="..\..\..\USER\Graphics.h" lastModified="160186234ea">
+         <include file="..\..\..\USER\Display.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_rcc.h" lastModified="1602cf743bc">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\USER\Display.h" lastModified="1600c7d1dc6">
+         <include file="..\..\..\USER\Video.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\CourierNew8_14.h" lastModified="15ff51d805a">
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="1602cf74daf">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\USER\Graphics.c" lastModified="1601862b296">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\bsp.h"/>
+         <include file="..\..\..\USER\Video.h"/>
+         <include file="..\..\..\USER\Graphics.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\DejaVueSans6x10.h" lastModified="16008a7a4c1">
+      </source>
+      <source file="..\..\..\USER\Fonts\CourierNew8_14.c" lastModified="15ff51db739">
+         <include file="..\..\..\USER\Fonts\fonts.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\FixedSys8_15.c" lastModified="1602d85f854">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\Fonts\fonts.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\system_stm32f10x.h" lastModified="1602cf700c8">
+      </source>
+      <source file="..\..\..\USER\GraphText.h" lastModified="1602d87e271">
+         <include file="..\..\..\USER\Fonts\fonts.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\DejaVueSans6x10.c" lastModified="16008b5322d">
+         <include file="..\..\..\USER\Fonts\fonts.h"/>
+      </source>
+      <source file="..\..\..\USER\main.c" lastModified="1602d815f34">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\bsp.h"/>
+         <include file="..\..\..\USER\Graphics.h"/>
+         <include file="..\..\..\USER\Starfield.h"/>
+         <include file="..\..\..\USER\BmpTest.h"/>
+         <include file="..\..\..\USER\Invaders.h"/>
+      </source>
+      <source file="..\..\..\USER\GraphText.c" lastModified="1602d87ea31">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\Graphics.h"/>
+         <include file="..\..\..\USER\GraphText.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="1602cf96063">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\FixedSys8_14.h" lastModified="15ff51cdae3">
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_dma.h" lastModified="1602cf756f6">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\stm32f10x_conf.h" lastModified="1602d853c57">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dma.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_spi.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\misc.h"/>
+      </source>
+      <source file="..\..\..\USER\bsp.h" lastModified="1602d8177fc">
+      </source>
+      <source file="..\..\..\USER\Fonts\FixedSys8_14.c" lastModified="15ff51d4d35">
+         <include file="..\..\..\USER\Fonts\fonts.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\misc.c" lastModified="1602d839222">
+         <include file="..\..\..\stm_lib\inc\misc.h"/>
+      </source>
+      <source file="..\..\..\cmsis\core_cmFunc.h" lastModified="1602cf70452">
+      </source>
+      <source file="..\..\..\USER\bsp.c" lastModified="1602d81c929">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\Video.h"/>
+         <include file="..\..\..\USER\bsp.h"/>
+      </source>
+      <source file="..\..\..\USER\Video.h" lastModified="15ff8157398">
+      </source>
+      <source file="..\..\..\USER\Video.c" lastModified="160183bcf72">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\bsp.h"/>
+         <include file="..\..\..\USER\Video.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md.c" lastModified="1602cf700c8">
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_tim.c" lastModified="1602cf76d1e">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_spi.h" lastModified="1602cf7629f">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stdio\printf.c" lastModified="1602cf73ca8">
+      </source>
+      <source file="..\..\..\stm_lib\inc\misc.h" lastModified="1602d839222">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\syscalls\syscalls.c" lastModified="1602cf73361">
+      </source>
+      <source file="..\..\..\cmsis\core_cmInstr.h" lastModified="1602cf70452">
+      </source>
+      <source file="..\..\..\USER\Invaders.h" lastModified="160089ed41a">
+      </source>
+      <source file="..\..\..\USER\Invaders.c" lastModified="1602d7fed16">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\bsp.h"/>
+         <include file="..\..\..\USER\Graphics.h"/>
+         <include file="..\..\..\USER\GraphText.h"/>
+         <include file="..\..\..\USER\Sprites\Sprites.h"/>
+         <include file="..\..\..\USER\Invaders.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="1602cf743bc">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\stm32f10x.h" lastModified="1602cf704b0">
+         <include file="..\..\..\cmsis\core_cm3.h"/>
+         <include file="..\..\..\cmsis_boot\system_stm32f10x.h"/>
+         <include file="..\..\..\cmsis_boot\stm32f10x_conf.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\fonts.h" lastModified="16008ab0a91">
+         <include file="..\..\..\USER\Graphics.h"/>
+         <include file="..\..\..\USER\Fonts\FixedSys8_14.h"/>
+         <include file="..\..\..\USER\Fonts\CourierNew8_14.h"/>
+         <include file="..\..\..\USER\Fonts\NokiaLargex_13.h"/>
+         <include file="..\..\..\USER\Fonts\DejaVueSans6x10.h"/>
+      </source>
+      <source file="..\..\..\USER\template.c" lastModified="15fed266f1f">
+      </source>
+      <source file="..\..\..\USER\Starfield.h" lastModified="15fed28a1be">
+      </source>
+      <source file="..\..\..\USER\Starfield.c" lastModified="15ff8db7385">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\USER\Graphics.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="1602cf756f6">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dma.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_gpio.h" lastModified="1602cf74d90">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_tim.h" lastModified="1602cf76d1e">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\NokiaLargex_13.h" lastModified="15ff8b622f8">
+      </source>
+      <source file="..\..\..\USER\Sprites\Sprites.h" lastModified="1600c7ae049">
+         <include file="..\..\..\USER\Graphics.h"/>
+      </source>
+      <source file="..\..\..\USER\Fonts\NokiaLargex_13.c" lastModified="15ff7f8cd6d">
+         <include file="..\..\..\USER\Fonts\fonts.h"/>
+      </source>
+      <source file="..\..\..\USER\Sprites\Sprites.c" lastModified="1600d1d9916">
+         <include file="..\..\..\USER\Sprites\Sprites.h"/>
+      </source>
+   </includePath>
+   <includePath signature="/I..\..\..\..\..\Projects\STM32\Co-Video\cmsis_boot /I..\..\..\..\..\Projects\STM32\Co-Video\stm_lib /I..\..\..\..\..\Projects\STM32\Co-Video\cmsis /I..\..\..\..\..\Projects\STM32\Co-Video\stm_lib\inc /I..\..\..\..\..\Projects\STM32\Co-Video /I..\..\..\..\..\Projects\STM32">
+      <source file="..\..\..\stm_lib\src\stm32f10x_spi.c" lastModified="1602cf762ae">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_spi.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_rcc.h" lastModified="1602cf743bc">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="1602cf74daf">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\system_stm32f10x.h" lastModified="1602cf700c8">
+      </source>
+      <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="1602cf96063">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_dma.h" lastModified="1602cf756f6">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md.c" lastModified="1602cf700c8">
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_tim.c" lastModified="1602cf76d1e">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_spi.h" lastModified="1602cf7629f">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="1602cf743bc">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="1602cf756f6">
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dma.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_gpio.h" lastModified="1602cf74d90">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\stm_lib\inc\stm32f10x_tim.h" lastModified="1602cf76d1e">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+   </includePath>
+</dependencies>

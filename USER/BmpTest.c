@@ -267,7 +267,7 @@ static void setObjectSpeed(void)
    else
       spd = -spd/2 - MIN_PIXEL_SPEED;
 
-      TestCtx.x_inc = spd/(int16_t)FRAME_RATE;
+   TestCtx.x_inc = spd/(int16_t)FRAME_RATE;
    
    /* Determine y speed */
    spd = rand() % spdrange;
@@ -276,7 +276,7 @@ static void setObjectSpeed(void)
    else
       spd = -spd/2 - MIN_PIXEL_SPEED;
 
-      TestCtx.y_inc = spd/(int16_t)FRAME_RATE;
+   TestCtx.y_inc = spd/(int16_t)FRAME_RATE;
    
 }
 

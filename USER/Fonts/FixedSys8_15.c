@@ -22,7 +22,7 @@
 *  line scan direction: forward
 *  inverse: yes
 *******************************************************************************/
-
+#include <stm32f10x.h>
 #include "fonts.h"
 
 /*

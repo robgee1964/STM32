@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<history>
+   <processor signature="arm-none-eabi-gcc noversion nomachine -mcpu=cortex-m3 -mthumb -Wall -ffunction-sections -g -O1 -c -DSTM32F103RB -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER -D__ASSEMBLY__ -I..\..\..\..\..\Projects\STM32\Co-Video\cmsis_boot -I..\..\..\..\..\Projects\STM32\Co-Video\USER\Fonts -I..\..\..\..\..\Projects\STM32\Co-Video\stm_lib -I..\..\..\..\..\Projects\STM32\Co-Video\cmsis -I..\..\..\..\..\Projects\STM32\Co-Video\USER -I..\..\..\..\..\Projects\STM32\Co-Video\stm_lib\inc -I..\..\..\..\..\Projects\STM32\Co-Video\USER\Sprites -I..\..\..\..\..\Projects\STM32\Co-Video -I..\..\..\..\..\Projects\STM32">
+      <target file="stm32f10x_spi.o" lastModified="1602d9a615e">
+         <source file="..\..\..\stm_lib\src\stm32f10x_spi.c" lastModified="1602cf762ae"/>
+      </target>
+      <target file="BmpTest.o" lastModified="1602d9a5cba">
+         <source file="..\..\..\USER\BmpTest.c" lastModified="1602d8a3347"/>
+      </target>
+      <target file="stm32f10x_rcc.o" lastModified="1602d9a5ebe">
+         <source file="..\..\..\stm_lib\src\stm32f10x_rcc.c" lastModified="1602cf743bc"/>
+      </target>
+      <target file="FixedSys8_14.o" lastModified="1602d9a5fd7">
+         <source file="..\..\..\USER\Fonts\FixedSys8_14.c" lastModified="15ff51d494d"/>
+      </target>
+      <target file="NokiaLargex_13.o" lastModified="1602d9a5cf9">
+         <source file="..\..\..\USER\Fonts\NokiaLargex_13.c" lastModified="15ff7f8c985"/>
+      </target>
+      <target file="Video.o" lastModified="1602d9a5f4a">
+         <source file="..\..\..\USER\Video.c" lastModified="160183bcf72"/>
+      </target>
+      <target file="template.o" lastModified="1602d9a5ba1">
+         <source file="..\..\..\USER\template.c" lastModified="15fed266f1f"/>
+      </target>
+      <target file="printf.o" lastModified="1602d9a5e12">
+         <source file="..\..\..\stdio\printf.c" lastModified="1602cf734d8"/>
+      </target>
+      <target file="misc.o" lastModified="1602d9a60f0">
+         <source file="..\..\..\stm_lib\src\misc.c" lastModified="1602d839222"/>
+      </target>
+      <target file="GraphText.o" lastModified="1602d9a5da4">
+         <source file="..\..\..\USER\GraphText.c" lastModified="1602d87e261"/>
+      </target>
+      <target file="Sprites.o" lastModified="1602d9a5f98">
+         <source file="..\..\..\USER\Sprites\Sprites.c" lastModified="1600d1d952e"/>
+      </target>
+      <target file="startup_stm32f10x_md.o" lastModified="1602d9a5b82">
+         <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md.c" lastModified="1602cf700c8"/>
+      </target>
+      <target file="stm32f10x_gpio.o" lastModified="1602d9a5bff">
+         <source file="..\..\..\stm_lib\src\stm32f10x_gpio.c" lastModified="1602cf74daf"/>
+      </target>
+      <target file="system_stm32f10x.o" lastModified="1602d9a59eb">
+         <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="1602cf96063"/>
+      </target>
+      <target file="syscalls.o" lastModified="1602d9a5efc">
+         <source file="..\..\..\syscalls\syscalls.c" lastModified="1602cf723c1"/>
+      </target>
+      <target file="FixedSys8_15.o" lastModified="1602d9a6064">
+         <source file="..\..\..\USER\Fonts\FixedSys8_15.c" lastModified="1602d85f46c"/>
+      </target>
+      <target file="CourierNew8_14.o" lastModified="1602d9a5f79">
+         <source file="..\..\..\USER\Fonts\CourierNew8_14.c" lastModified="15ff51db351"/>
+      </target>
+      <target file="DejaVueSans6x10.o" lastModified="1602d9a5e50">
+         <source file="..\..\..\USER\Fonts\DejaVueSans6x10.c" lastModified="16008b52e45"/>
+      </target>
+      <target file="Graphics.o" lastModified="1602d9a58c2">
+         <source file="..\..\..\USER\Graphics.c" lastModified="1601862aeae"/>
+      </target>
+      <target file="stm32f10x_tim.o" lastModified="1602d9a59ad">
+         <source file="..\..\..\stm_lib\src\stm32f10x_tim.c" lastModified="1602cf76d1e"/>
+      </target>
+      <target file="bsp.o" lastModified="1602d9a60a2">
+         <source file="..\..\..\USER\bsp.c" lastModified="1602d81c929"/>
+      </target>
+      <target file="Invaders.o" lastModified="1602d9a5b05">
+         <source file="..\..\..\USER\Invaders.c" lastModified="1602d7fe546"/>
+      </target>
+      <target file="stm32f10x_dma.o" lastModified="1602d9a6025">
+         <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="1602cf756f6"/>
+      </target>
+      <target file="main.o" lastModified="1602d9a5d56">
+         <source file="..\..\..\USER\main.c" lastModified="1602d815b4c"/>
+      </target>
+      <target file="Starfield.o" lastModified="1602d9a5b62">
+         <source file="..\..\..\USER\Starfield.c" lastModified="15ff8db6f9d"/>
+      </target>
+   </processor>
+</history>

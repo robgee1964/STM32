@@ -44,7 +44,7 @@ int main(void)
    /* pointer alignment test  */
 
    SystemInit();
-	GPIO_Configuration();
+   Bsp_Configuration();
    GraphicsInit();
 
    #ifdef TEST

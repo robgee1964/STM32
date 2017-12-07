@@ -209,9 +209,7 @@ void InvadersGame(t_ButtonEvent button_event)
                if(alien_redraw == 1)
                {
                   while(DrawAliens() == 0);
-                  {
-                     alien_redraw = 0;
-                  }
+                  alien_redraw = 0;
                }
             break;
             

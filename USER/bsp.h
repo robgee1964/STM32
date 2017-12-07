@@ -35,7 +35,7 @@ typedef enum {BTN_NONE, BTN_CLICK, BTN_HOLD} t_ButtonEvent;
 
 
 /***** Exported functions   ***************************************/
-void GPIO_Configuration(void);
+void Bsp_Configuration(void);
 t_ButtonEvent ReadButtons(void);
 uint16_t ReadGameButtons(void);
 

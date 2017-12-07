@@ -23,10 +23,10 @@
 
 /***** Exported functions  ****************************************/
 /**
-*  @fn     GPIO_Configuration
-*  @brief  GPIO configuration for Olimex STM32P103 board
+*  @fn     Bsp_Configuration
+*  @brief  configuration for Olimex STM32P103 board
 */
-void GPIO_Configuration(void)
+void Bsp_Configuration(void)
 {
   GPIO_InitTypeDef GPIO_InitStructure = {0};
   
