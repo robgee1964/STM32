@@ -97,6 +97,28 @@ uint16_t PutText(uint8_t *str, uint8_t action)
    return x_pixels;
 }
 
+
+/**
+*  @fn         PutInt16
+*  @param[IN]  number to be printed
+*  @param[IN]  action - selects plot action
+*     @arg     0 - clear
+*     @arg     1 - set
+*  @brief      Returns pixel width written
+*/
+uint16_t PutInt16(uint16_t val, uint8_t action)
+{
+   uint8_t str[6];
+   uint16_t i;
+   for (i = 0; i < 5; i++)
+   {
+      str[4-i] = (uint8_t)((val % 10) + '0');
+      val /= 10;
+   }
+   str[5] = 0;
+   return PutText(str, action);
+}
+
 /**
 *  @fn         GetTextLen
 *  @param[IN]  pointer to string

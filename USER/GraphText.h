@@ -33,6 +33,7 @@
 void SetFont(fontselect_t font);
 uint16_t PutChar(uint8_t ASCI, uint8_t action);
 uint16_t PutText(uint8_t *str, uint8_t action);
+uint16_t PutInt16(uint16_t val, uint8_t action);
 uint16_t GetTextLen(uint8_t *str);
 uint16_t GetTextHeight(uint8_t *str);
 

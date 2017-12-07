@@ -292,7 +292,7 @@
         <tRbox>1</tRbox>
         <sRunDeb>0</sRunDeb>
         <sLrtime>0</sLrtime>
-        <nTsel>1</nTsel>
+        <nTsel>8</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
         <sDlgDll></sDlgDll>
@@ -303,9 +303,14 @@
         <tDlgDll></tDlgDll>
         <tDlgPa></tDlgPa>
         <tIfile></tIfile>
-        <pMon>BIN\UL2CM3.DLL</pMon>
+        <pMon>STLink\ST-LINKIII-KEIL.dll</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
+        <SetRegEntry>
+          <Number>0</Number>
+          <Key>ST-LINKIII-KEIL</Key>
+          <Name></Name>
+        </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGTARM</Key>
@@ -428,12 +433,12 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>4</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>41</TopLine>
+      <CurrentLine>56</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Graphics.c</PathWithFileName>
       <FilenameWithoutPath>Graphics.c</FilenameWithoutPath>
@@ -456,12 +461,12 @@
       <GroupNumber>1</GroupNumber>
       <FileNumber>6</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>26</ColumnNumber>
+      <ColumnNumber>64</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>71</TopLine>
+      <CurrentLine>94</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\GraphText.c</PathWithFileName>
       <FilenameWithoutPath>GraphText.c</FilenameWithoutPath>
@@ -474,7 +479,7 @@
       <Focus>0</Focus>
       <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
+      <TopLine>14</TopLine>
       <CurrentLine>37</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\bsp.c</PathWithFileName>
@@ -500,10 +505,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>114</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>419</TopLine>
-      <CurrentLine>438</CurrentLine>
+      <TopLine>434</TopLine>
+      <CurrentLine>457</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Invaders.c</PathWithFileName>
       <FilenameWithoutPath>Invaders.c</FilenameWithoutPath>
@@ -512,7 +517,7 @@
 
   <Group>
     <GroupName>StdPeriph_Driver</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -803,7 +808,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>2616</TopLine>
+      <TopLine>2618</TopLine>
       <CurrentLine>2641</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</PathWithFileName>
@@ -1009,12 +1014,12 @@
       <GroupNumber>8</GroupNumber>
       <FileNumber>42</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>19</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>39</TopLine>
-      <CurrentLine>39</CurrentLine>
+      <TopLine>299</TopLine>
+      <CurrentLine>318</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\USER\Video.c</PathWithFileName>
       <FilenameWithoutPath>Video.c</FilenameWithoutPath>
@@ -1022,61 +1027,9 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>C:\Projects\STM32\Video\USER\Invaders.h</PathWithFilename>
+    <PathWithFilename>C:\Projects\STM32\Video\USER\Graphics.h</PathWithFilename>
     <TopLine>1</TopLine>
-    <CurrentLine>19</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Projects\STM32\Video\USER\Fonts\DejaVueSans6x10.h</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>12</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\Projects\STM32\Video\USER\Video.h</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>20</CurrentLine>
+    <CurrentLine>33</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1152,9 +1105,87 @@
   </AlienFiles>
 
   <AlienFiles>
-    <PathWithFilename>C:\Projects\STM32\Video\USER\Graphics.h</PathWithFilename>
+    <PathWithFilename>C:\Projects\STM32\Video\USER\GraphText.h</PathWithFilename>
+    <TopLine>13</TopLine>
+    <CurrentLine>36</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Projects\STM32\Video\USER\Invaders.h</PathWithFilename>
     <TopLine>1</TopLine>
-    <CurrentLine>33</CurrentLine>
+    <CurrentLine>12</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Projects\STM32\Video\USER\Video.h</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>1</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>C:\Projects\STM32\Video\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h</PathWithFilename>
+    <TopLine>43</TopLine>
+    <CurrentLine>43</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1181,9 +1212,15 @@
     <Orientation>3</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
-      <Size>62</Size>
-      <ActiveTab>2</ActiveTab>
+      <Size>51</Size>
+      <ActiveTab>0</ActiveTab>
       <Documents>
+        <Doc>
+          <Name>..\Libraries\STM32F10x_StdPeriph_Driver\inc\misc.h</Name>
+          <ColumnNumber>20</ColumnNumber>
+          <TopLine>43</TopLine>
+          <CurrentLine>43</CurrentLine>
+        </Doc>
         <Doc>
           <Name>..\USER\Graphics.h</Name>
           <ColumnNumber>13</ColumnNumber>
@@ -1191,28 +1228,16 @@
           <CurrentLine>33</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\USER\Invaders.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>419</TopLine>
-          <CurrentLine>438</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\USER\stm32f10x_it.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>43</TopLine>
-          <CurrentLine>58</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>..\USER\Video.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>39</TopLine>
-          <CurrentLine>39</CurrentLine>
+          <ColumnNumber>19</ColumnNumber>
+          <TopLine>299</TopLine>
+          <CurrentLine>318</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\Libraries\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</Name>
+          <Name>..\USER\Invaders.h</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>2616</TopLine>
-          <CurrentLine>2641</CurrentLine>
+          <TopLine>1</TopLine>
+          <CurrentLine>12</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\main.c</Name>
@@ -1221,16 +1246,22 @@
           <CurrentLine>46</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\USER\Graphics.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
+          <Name>..\USER\Invaders.c</Name>
+          <ColumnNumber>114</ColumnNumber>
+          <TopLine>434</TopLine>
+          <CurrentLine>457</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\USER\Invaders.h</Name>
+          <Name>..\USER\Graphics.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>19</CurrentLine>
+          <TopLine>41</TopLine>
+          <CurrentLine>56</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\USER\stm32f10x_it.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>43</TopLine>
+          <CurrentLine>58</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\BmpTest.c</Name>
@@ -1239,10 +1270,10 @@
           <CurrentLine>382</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\USER\GraphText.c</Name>
-          <ColumnNumber>26</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
+          <Name>..\USER\GraphText.h</Name>
+          <ColumnNumber>32</ColumnNumber>
+          <TopLine>13</TopLine>
+          <CurrentLine>36</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\USER\Fonts\fonts.h</Name>
@@ -1256,41 +1287,29 @@
           <TopLine>1</TopLine>
           <CurrentLine>19</CurrentLine>
         </Doc>
-        <Doc>
-          <Name>..\USER\Video.h</Name>
-          <ColumnNumber>20</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>20</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\USER\Fonts\FixedSys8_14.c</Name>
-          <ColumnNumber>36</ColumnNumber>
-          <TopLine>2786</TopLine>
-          <CurrentLine>2809</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\USER\Fonts\DejaVueSans6x10.h</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>12</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\USER\Fonts\DejaVueSans6x10.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>2400</TopLine>
-          <CurrentLine>2423</CurrentLine>
-        </Doc>
       </Documents>
     </MDIGroup>
     <MDIGroup>
-      <Size>38</Size>
-      <ActiveTab>0</ActiveTab>
+      <Size>49</Size>
+      <ActiveTab>2</ActiveTab>
       <Documents>
         <Doc>
           <Name>..\USER\bsp.c</Name>
           <ColumnNumber>33</ColumnNumber>
-          <TopLine>1</TopLine>
+          <TopLine>14</TopLine>
           <CurrentLine>37</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\USER\Video.h</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\USER\GraphText.c</Name>
+          <ColumnNumber>64</ColumnNumber>
+          <TopLine>71</TopLine>
+          <CurrentLine>94</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
